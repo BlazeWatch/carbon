@@ -1,2 +1,2 @@
 # SaveZakarHackathon
-WarpWing and Tricked's SaveZakarHackathon Solution (Joint Venture)
+WarpWing, Tricked, and Delta's SaveZakarHackathon Solution (Joint Venture)
