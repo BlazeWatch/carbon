@@ -4,3 +4,6 @@ primaryColor = "red"
 
 [server]
 enableStaticServing = true
+
+[browser]
+gatherUsageStats = false
