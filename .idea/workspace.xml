@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ced0f06-4020-4ecc-b817-c1b01378a76c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/SaveZakarHackathon.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.streamlit/config.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/addscipt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/template.jinja2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tweets.jinja2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visualize.py" beforeDir="false" />
+    <list default="true" id="4ced0f06-4020-4ecc-b817-c1b01378a76c" name="Changes" comment="yup">
+      <change afterPath="$PROJECT_DIR$/bars.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +29,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Tricked-dev"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="edb7fa31-ccaf-4a62-bf60-ae8c5376bbe6" />
+        <option name="url" value="https://github.com/WarpWing/SaveZakarHackathon" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -108,9 +113,22 @@
       <workItem from="1690824250361" duration="101000" />
       <workItem from="1690824356833" duration="4265000" />
       <workItem from="1690910086714" duration="7648000" />
-      <workItem from="1690954861373" duration="6051000" />
+      <workItem from="1690954861373" duration="6737000" />
     </task>
+    <task id="LOCAL-00001" summary="yup">
+      <option name="closed" value="true" />
+      <created>1690974655422</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1690974655422</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="yup" />
+    <option name="LAST_COMMIT_MESSAGE" value="yup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
