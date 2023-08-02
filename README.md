@@ -1,18 +1,29 @@
 # SaveZakarHackathon
-WarpWing, Tricked, and Delta's SaveZakarHackathon Solution (Joint Venture)
+Blazewatch is a joint venture solution for the SaveZakarHackathon by WarpWing, Tricked, and Delta. The application is built using Streamlit and requires Python 3.8+ to run.
 
 # Installation:
 
-First, you need to install the dependencies. Make your that you have Python 3.8+ installed for Streamlit!
-
-Run the following command in your local terminal:
+1. Ensure that you have Python 3.11+ installed on your system.
+2. Clone this repository to your local machine.
+3. Navigate to the repository root directory in your terminal.
+4. Set up a virtual environment for the project by running the following command:
+```python
+python3 -m venv env
+```
+5. Activate the virtual environment:
+On Windows, run:
+```cmd
+env\Scripts\activate
+```
+On Unix or MacOS, run:
+```bash
+source env/bin/activate
+```
+6. Install the required dependencies by running the following command:
 ```python
 pip3 install -r requirements.txt
 ```
-
-Then, run Streamlit on the main.py file like so,
+7. Run the Blazewatch application using Streamlit with the following command:
 ```python
 streamlit run main.py
 ```
-
-Make sure you are running this command in the repository root directory!
