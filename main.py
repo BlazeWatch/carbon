@@ -7,7 +7,7 @@ from htmlBuilder.tags import *
 import jinja2
 import htmlmin
 from htmlmin import minify
-import addscipt
+import addscript
 
 addscipt.add_analytics_tag()
 
