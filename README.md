@@ -1,5 +1,5 @@
 # SaveZakarHackathon
-This is a joint venture solution for the SaveZakarHackathon by WarpWing, Tricked, and Delta. The application is built using Streamlit and requires Python 3.8+ to run.
+Blazewatch is a joint venture solution for the SaveZakarHackathon by WarpWing, Tricked, and Delta. The application is built using Streamlit and requires Python 3.8+ to run.
 
 # Installation:
 
@@ -10,7 +10,7 @@ This is a joint venture solution for the SaveZakarHackathon by WarpWing, Tricked
 ```python
 pip3 install -r requirements.txt
 ```
-5. Run the application using Streamlit with the following command:
+5. Run the Blazewatch application using Streamlit with the following command:
 ```python
 streamlit run main.py
 ```
