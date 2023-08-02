@@ -1,0 +1,24 @@
+<h3>Tweets on day 5</h3>
+<div class="tweets-content" style="display: flex; flex-direction: column; gap: 10px">
+    {% for tweet in tweets %}
+        <div style="background-color: #1a1c24; border-radius: 10px; padding: 8px">
+            <p class="larger">at {{ tweet.xy[0] }},{{ tweet.xy[1] }} <small>AI Fire
+                Rating {{ tweet.score * 100 }}%</small></p>
+            <p>content: {{ tweet.content }}</p>
+        </div>
+    {% endfor %}
+</div>
+<style>
+    .tweets-content p {
+        margin-bottom: unset;
+    }
+
+    .larger {
+        font-size: 1.2rem;
+    }
+
+    body {
+        font-family: "Comic Sans MS", "-apple-system", "system-ui";
+    }
+</style>
+
