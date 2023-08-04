@@ -6,3 +6,4 @@ matplotlib
 jinja2
 sqlalchemy
 python-dotenv
+psycopg2
