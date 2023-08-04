@@ -1,18 +1,31 @@
+import os
+from ast import literal_eval
+from collections import namedtuple
+
 import numpy as np
-import pandas as pd
 import streamlit as st
-import streamlit.components.v1 as components
-from htmlBuilder.attributes import Class
-from htmlBuilder.tags import *
 import jinja2
-import htmlmin
 from htmlmin import minify
 import addscript
+import sqlalchemy as sa
+import pandas as pd
 
-addscipt.add_analytics_tag()
+from dotenv import load_dotenv
+
+load_dotenv()
+
+engine = sa.create_engine(os.environ.get("DATABASE_URL"))
+
+conn = engine.connect()
+
+day = conn.scalar(sa.text('SELECT MAX(day) FROM public.temp_readings'))
+
+avg = conn.execute(sa.text(f'SELECT AVG(temperature) FROM public.temp_readings WHERE day = {day}')).scalar()
+
+addscript.add_custom_scripts()
 
 st.set_page_config(
-    page_title="My Dashboard",
+    page_title="Fire dashboard",
     layout="wide",
 )
 
@@ -23,31 +36,19 @@ df = pd.DataFrame({
 
 cols = st.columns([1, 3, 1])
 
+
+def fetch_objects(conn, query):
+    result_proxy = conn.execute(sa.text(query))
+
+    records = [{column: value for column, value in zip(result_proxy.keys(), r)} for r in result_proxy.fetchall()]
+
+    return records
+
+
 with cols[0]:
-    array = [
-        {'ai_reported': 32, 'event_day': 19, 'notification_day': 13, 'xy': [12, 1]},
-        {'ai_reported': 11, 'event_day': 17, 'notification_day': 13, 'xy': [11, 1]},
-        {'ai_reported': 32, 'event_day': 16, 'notification_day': 13, 'xy': [3, 1]},
-        {'ai_reported': 14, 'event_day': 14, 'notification_day': 13, 'xy': [1, 1]},
-        {'ai_reported': 52, 'event_day': 11, 'notification_day': 13, 'xy': [23, 1]},
-    ]
-
-    # st.markdown(
-    #     Section(
-    #         [],
-    #         [
-    #             Div([Class(f"tw-{tweet['ai_reported']}")],
-    #                 Div([],
-    #                     H5([],
-    #                        f"**Event on:** {tweet['event_day']}"
-    #                        ),
-    #                     )
-    #                 ) for tweet in array],
-    #     ).render(),
-    #     unsafe_allow_html=True
-    # )
-
-    for idx, item in enumerate(array):
+    array = conn.execute(sa.text('SELECT * FROM public.fire_alerts ORDER BY event_day DESC LIMIT 8')).fetchall()
+    for idx, row in enumerate(array):
+        item = {"ai_reported": -1, "notification_day": row[1], "event_day": row[0], "xy": row[2]}
         with st.container():
             st.markdown("<div style='background-color:#f3f3f3'>", unsafe_allow_html=True)
             st.markdown(f"##### **Event on:** {item['event_day']}")
@@ -61,34 +62,26 @@ with cols[0]:
 with cols[1]:
     col1, col2, col3 = st.columns(3)
     col1.metric("Fires", "2")
-    col2.metric("AVG Temp", "80 °F")
-    col3.metric("Day", "2")
+    col2.metric("AVG Temp", str(round(avg, 1)) + " °F")
+    col3.metric("Day", day)
     chart_data = pd.DataFrame(
         np.random.randn(20, 3),
         columns=['a', 'b', 'c'])
 
     cols[1].line_chart(chart_data)
 
-    cols[1].dataframe(df, use_container_width=True)
+    cols[1].header("Hottest zones")
+    cols[1].dataframe(
+        pd.read_sql_query(f"SELECT * FROM temp_readings WHERE day = {day} ORDER BY temperature DESC LIMIT 20", conn),
+        use_container_width=True, hide_index=True)
 
 with cols[2]:
-    tweets = [
-        {"day": 4, "xy": [12, 1], "content": "A cat", "score": 0.7},
-        {"day": 5, "xy": [11, 1], "content": "A dog", "score": 0.3},
-        {"day": 6, "xy": [3, 1], "content": "An owl", "score": 0.2},
-        {"day": 7, "xy": [1, 1], "content": "A bird", "score": 0.1},
-        {"day": 8, "xy": [23, 1], "content": "A fish", "score": 0.0},
-        {"day": 10, "xy": [23, 1], "content": "A Fly", "score": 0.5},
-        {"day": 11, "xy": [23, 1], "content": "A Bish", "score": 0.3},
-        {"day": 12, "xy": [23, 1], "content": "A Lion", "score": 0.2},
-        {"day": 13, "xy": [23, 1], "content": "A Wolf", "score": 0.1},
-        {"day": 14, "xy": [23, 1], "content": "A Fox", "score": 0.0}
-    ]
+    tweets = fetch_objects(conn, f'SELECT * FROM public.tweets WHERE day = {day} LIMIT 20')
+    for record in tweets:
+        record["xy"] = literal_eval(record["xy"])
     templateLoader = jinja2.FileSystemLoader(searchpath="./")
     templateEnv = jinja2.Environment(loader=templateLoader)
     TEMPLATE_FILE = "template.html"
     template = templateEnv.get_template("tweets.jinja2")
     outputText = template.render(tweets=tweets)
     st.markdown(minify(outputText), unsafe_allow_html=True)
-
-# cols[2].dataframe(df, use_container_width=True)

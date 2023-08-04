@@ -1,7 +1,8 @@
 streamlit
-htmlBuilder
 htmlmin
 numpy
 pandas
 matplotlib
 jinja2
+sqlalchemy
+python-dotenv

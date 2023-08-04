@@ -5,7 +5,7 @@ import logging
 import streamlit as st
 
 
-def add_analytics_tag():
+def add_custom_scripts():
     id = "FINAL"
     analytics_js = f"""
     <script type="module" async>
