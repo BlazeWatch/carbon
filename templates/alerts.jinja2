@@ -1,0 +1,56 @@
+<h3>Last 5 Confirmed Reports</h3>
+<div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
+    {% for alert in alerts %}
+        <div style=" border-radius: 10px; padding: 8px">
+            <p class="larger">at {{ alert.xy.0 }},{{ alert.xy.1 }} on day {{ alert.event_day }}
+            <p>Found on {{ alert.notification_day }}</p>
+        </div>
+    {% endfor %}
+</div>
+<h3>Last 5 AI Predicted Reports</h3>
+<div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
+    {% for alert in ai_alerts %}
+        <div class="alert">
+            <p class="larger">at {{ alert.xy.0 }},{{ alert.xy.1 }} predicted on day {{ alert.day }}
+            <p>confidence: {{ alert.confidence }}</p>
+        </div>
+    {% endfor %}
+</div>
+<style>
+    .alert-content p {
+        margin-bottom: unset;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .alert {
+        border-top: 8px solid;
+        border-image-source: linear-gradient(90deg, rgba(131, 58, 180, 0.6474964985994398) 0%, rgba(253, 29, 29, 0.5158438375350141) 50%, rgba(252, 176, 69, 0.45702030812324934) 100%);
+        border-image-slice: 1; /* this could be adjusted as per your requirement */
+        border-image-repeat: round; /* The default value is stretch */
+        border-radius: 10px;
+        background-color: #1a1c24;
+        padding: 2px 8px 8px;
+
+        animation: gradient 5s ease infinite;
+    }
+
+    .larger {
+        font-size: 1.2rem;
+    }
+
+    a[href^="#event-on"] {
+        display: none;
+    }
+</style>
+

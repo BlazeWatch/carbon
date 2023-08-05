@@ -36,28 +36,36 @@ df = pd.DataFrame({
 
 cols = st.columns([1, 3, 1])
 
+templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
+templateEnv = jinja2.Environment(loader=templateLoader)
+
+
+def render_template(template: str, **kwargs):
+    result = templateEnv.get_template(template)
+    outputText = result.render(**kwargs)
+    st.markdown(minify(outputText), unsafe_allow_html=True)
+
+
+render_template("css.html")
+
 
 def fetch_objects(conn, query):
     result_proxy = conn.execute(sa.text(query))
 
     records = [{column: value for column, value in zip(result_proxy.keys(), r)} for r in result_proxy.fetchall()]
 
+    if records[0]["xy"] is not None:
+        for record in records:
+            record["xy"] = literal_eval(record["xy"])
+
     return records
 
 
 with cols[0]:
-    array = conn.execute(sa.text('SELECT * FROM public.fire_alerts ORDER BY event_day DESC LIMIT 8')).fetchall()
-    for idx, row in enumerate(array):
-        item = {"ai_reported": -1, "notification_day": row[1], "event_day": row[0], "xy": row[2]}
-        with st.container():
-            st.markdown("<div style='background-color:#f3f3f3'>", unsafe_allow_html=True)
-            st.markdown(f"##### **Event on:** {item['event_day']}")
-            col1, col2 = st.columns([1, 1])
-            with col1:
-                st.markdown(f"**AI Reported:** {item['ai_reported']}")
-            with col2:
-                st.markdown(f"**Notification Day:** {item['notification_day']}")
-            st.markdown("</div>", unsafe_allow_html=True)
+    alerts = fetch_objects(conn, 'SELECT * FROM public.fire_alerts ORDER BY event_day DESC LIMIT 5')
+    ai_alerts = fetch_objects(conn, 'SELECT * FROM public.ai_fire_alerts ORDER BY day DESC LIMIT 5')
+
+    render_template("alerts.jinja2", alerts=alerts, ai_alerts=ai_alerts)
 
 with cols[1]:
     col1, col2, col3 = st.columns(3)
@@ -77,11 +85,5 @@ with cols[1]:
 
 with cols[2]:
     tweets = fetch_objects(conn, f'SELECT * FROM public.tweets WHERE day = {day} LIMIT 20')
-    for record in tweets:
-        record["xy"] = literal_eval(record["xy"])
-    templateLoader = jinja2.FileSystemLoader(searchpath="./")
-    templateEnv = jinja2.Environment(loader=templateLoader)
-    TEMPLATE_FILE = "template.html"
-    template = templateEnv.get_template("tweets.jinja2")
-    outputText = template.render(tweets=tweets)
-    st.markdown(minify(outputText), unsafe_allow_html=True)
+
+    render_template("tweets.jinja2", tweets=tweets)
