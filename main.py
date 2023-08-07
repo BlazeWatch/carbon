@@ -23,13 +23,15 @@ st.set_page_config(
 
 @st.cache_resource
 def get_conn():
+    print("Connecting to database")
     engine = sa.create_engine(os.environ.get("DATABASE_URL"))
 
     conn = engine.connect()
+    print("Connected to database")
     return conn
 
 
-addscript.add_custom_scripts()
+# addscript.add_custom_scripts()
 
 df = pd.DataFrame({
     'first column': list(range(1, 4)),
@@ -40,7 +42,6 @@ templateLoader = jinja2.FileSystemLoader(searchpath="./templates")
 templateEnv = jinja2.Environment(loader=templateLoader)
 
 placeholder = st.empty()
-
 conn = get_conn()
 
 
