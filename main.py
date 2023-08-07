@@ -16,8 +16,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 st.set_page_config(
-    page_title="Fire dashboard",
+    page_title="Zaza Monitor",
     layout="wide",
+    page_icon="/app/static/iconee.png"
 )
 
 

@@ -6,5 +6,5 @@ matplotlib
 jinja2
 sqlalchemy
 python-dotenv
-psycopg2
+psycopg2-binary
 bs4
