@@ -79,6 +79,7 @@ def fetch_panda_frame(query):
 
 
 max_day = conn.scalar(sa.text('SELECT MAX(day) FROM public.temp_readings_production'))
+
 with st.sidebar:
     page = st.radio(
         "What\'s your favorite movie genre",
@@ -119,7 +120,7 @@ if page == 'stats':
     st.markdown("A small tab with some stats about the dataset")
 
     tweet_count = conn.scalar(sa.text(f'SELECT COUNT(*) FROM public.tweets_production'))
-    fire_alert_count = conn.scalar(sa.text(f'SELECT COUNT(*) FROM public.firealerts_production'))
+    fire_alert_count = conn.scalar(sa.text(f'SELECT COUNT(*) FROM public.fire_alerts_production'))
     ai_fire_alert_count = conn.scalar(sa.text(f'SELECT COUNT(*) FROM public.ai_fire_alerts'))
     temperature_reading_count = conn.scalar(sa.text(f'SELECT COUNT(*) FROM public.temp_readings_production'))
     avg_temperature = conn.scalar(sa.text(f'SELECT AVG(temperature) FROM public.temp_readings_production'))
@@ -154,7 +155,7 @@ while page != 'stats':
 
         with cols[0]:
             alerts = fetch_objects(
-                f'SELECT * FROM public.firealerts_production WHERE notification_day <= {day} ORDER BY event_day DESC LIMIT 5')
+                f'SELECT * FROM public.fire_alerts_production WHERE notification_day <= {day} ORDER BY event_day DESC LIMIT 5')
             ai_alerts = fetch_objects(
                 f'SELECT * FROM public.ai_fire_alerts WHERE day <= {day} ORDER  BY day DESC LIMIT 5')
 
