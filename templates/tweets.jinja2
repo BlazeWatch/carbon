@@ -1,4 +1,4 @@
-<h3>Tweets on day {{ tweets[0].day }}</h3>
+<h3>Tweets on day {{ day }}</h3>
 <div class="tweets-content" style="display: flex; flex-direction: column; gap: 10px">
     {% for tweet in tweets %}
         <div class="tweet">
@@ -6,6 +6,11 @@
             <p class="content">Content: {{ tweet.content }}</p>
         </div>
     {% endfor %}
+    {% if tweets|length == 0 %}
+        <div class="tweet">
+            No tweets found maybe a wait until the ingress is done
+        </div>
+    {% endif %}
 </div>
 
 <style>

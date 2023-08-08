@@ -8,3 +8,4 @@ sqlalchemy
 python-dotenv
 psycopg2-binary
 bs4
+plotly

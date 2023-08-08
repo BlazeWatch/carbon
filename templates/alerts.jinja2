@@ -6,6 +6,11 @@
             <p>Discovered on {{ alert.notification_day }}</p>
         </div>
     {% endfor %}
+    {% if alerts|length == 0 %}
+        <div class="predicted-alert">
+            No alert found
+        </div>
+    {% endif %}
 </div>
 <h3>Last 5 AI Predicted Reports</h3>
 <div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
@@ -15,6 +20,11 @@
             <p>Confidence Level: {{ alert.confidence }}</p>
         </div>
     {% endfor %}
+    {% if ai_alerts|length == 0 %}
+        <div class="predicted-alert">
+            No alert found
+        </div>
+    {% endif %}
 </div>
 
 <style>
