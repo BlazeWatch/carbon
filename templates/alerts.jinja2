@@ -1,23 +1,23 @@
-<h3>Last 5 Confirmed Reports</h3>
+<h3>Latest Wildfire Reports</h3>
 <div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
     {% for alert in alerts %}
         <div class="confirmed-alert">
-            <p class="larger">at {{ alert.xy.0 }},{{ alert.xy.1 }} on day {{ alert.event_day }}
-            <p>Discovered on {{ alert.notification_day }}</p>
+            <p class="larger">Wildfire at [{{ alert.xy.0 }},{{ alert.xy.1 }}] on Day {{ alert.event_day }}
+            <p>Reported on Day {{ alert.notification_day }}</p>
         </div>
     {% endfor %}
     {% if alerts|length == 0 %}
         <div class="predicted-alert">
-            No alert found
+            No alert found. You should start seeing alerts soon! Make sure everything is properly configured!
         </div>
     {% endif %}
 </div>
-<h3>Last 5 AI Predicted Reports</h3>
+<h3>Current Blazewatch Wildfire Forecast</h3>
 <div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
     {% for alert in ai_alerts %}
         <div class="predicted-alert">
-            <p class="larger">at {{ alert.xy.0 }},{{ alert.xy.1 }} predicted on day {{ alert.day }}
-            <p>Confidence Level: {{ alert.confidence }}</p>
+            <p class="larger">Predicted Wildfire at [{{ alert.xy.0 }},{{ alert.xy.1 }}] on Day {{ alert.day }}
+            <p>Confidence Level: {{ alert.confidence }}%</p>
         </div>
     {% endfor %}
     {% if ai_alerts|length == 0 %}

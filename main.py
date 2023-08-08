@@ -172,7 +172,7 @@ while page != 'stats':
 
             cols[1].line_chart(chart_data)
 
-            cols[1].header("Hottest zones")
+            cols[1].header("Current Hottest Zones")
             cols[1].dataframe(
                 fetch_panda_frame(
                     f"SELECT * FROM temp_readings_production WHERE day = {day} ORDER BY temperature DESC LIMIT 20"),
