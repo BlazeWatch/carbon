@@ -1,14 +1,14 @@
-<h3>Tweets on day {{ day }}</h3>
+<h3>Tweet activity on {{ day }}</h3>
 <div class="tweets-content" style="display: flex; flex-direction: column; gap: 10px">
     {% for tweet in tweets %}
         <div class="tweet">
-            <p class="larger">at {{ tweet.xy.0 }},{{ tweet.xy[0] }}
-            <p class="content">Content: {{ tweet.content }}</p>
+            <p class="larger">Tweeted from [{{ tweet.xy.0}},{{ tweet.xy[0] }}]
+            <p class="content">Tweet: {{ tweet.content }}</p>
         </div>
     {% endfor %}
     {% if tweets|length == 0 %}
         <div class="tweet">
-            No tweets found maybe a wait until the ingress is done
+            No tweets founds. Make sure that ingress and database are running properly.
         </div>
     {% endif %}
 </div>
