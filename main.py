@@ -83,7 +83,7 @@ max_day = conn.scalar(sa.text('SELECT MAX(day) FROM public.temp_readings_product
 with st.sidebar:
     page = st.radio(
         "What\'s your favorite movie genre",
-        ('realtime', 'stats'))
+        ('realtime', 'stats', "AI Checker"))
     if page == 'realtime':
         day = st.number_input("Day", min_value=1, max_value=5000, value=max_day)
         if day > max_day:
@@ -148,7 +148,16 @@ if page == 'stats':
 
     plot_avg_temperature_per_plot()
 
-while page != 'stats':
+if page == 'AI Checker':
+    st.markdown("# AI Checker")
+    with st.form("AI Checker"):
+        text = st.text_input("Enter your text")
+        if st.form_submit_button("Check!"):
+            # send_http_request()
+
+            st.text("99% ai!!!")
+
+while page != 'stats' and page != 'AI Checker':
     avg = conn.scalar(sa.text(f'SELECT AVG(temperature) FROM public.temp_readings_production WHERE day = {day}'))
     with placeholder.container():
         cols = st.columns([1, 3, 1])
