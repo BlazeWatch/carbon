@@ -29,7 +29,8 @@ In collaboration with WarpWing, Tricked, and Delta, Carbon is the cutting-edge f
    ```python
    pip3 install -r requirements.txt
    ```
-7. Run the Blazewatch application using Streamlit:
+7. Rename `EXAMPLE.env` to `.env` and fill in the required fields.
+8. Run the Blazewatch application using Streamlit:
    ```python
    streamlit run main.py
    ```
