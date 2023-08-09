@@ -1,28 +1,27 @@
-<h3>Latest Wildfire Reports</h3>
-<div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
-    {% for alert in alerts %}
-        <div class="confirmed-alert">
-            <p class="larger">Wildfire at [{{ alert.xy.0 }},{{ alert.xy.1 }}] on Day {{ alert.event_day }}
-            <p>Reported on Day {{ alert.day }}</p>
-        </div>
-    {% endfor %}
-    {% if alerts|length == 0 %}
-        <div class="predicted-alert">
-            No alert found
-        </div>
-    {% endif %}
-</div>
-<h3>Current Blazewatch Wildfire Forecast</h3>
+<h3>BlazeWatch Wildfire Forecast Predictions</h3>
 <div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
     {% for alert in ai_alerts %}
         <div class="predicted-alert">
-            <p class="larger">Predicted Wildfire at [{{ alert.xy.0 }},{{ alert.xy.1 }}] on Day {{ alert.day }}
+            <p class="larger">Day {{ alert.day }} - Wildfire at ({{ alert.xy.0 }}, {{ alert.xy.1 }})
             <p>Confidence Level: {{ alert.score }}%</p>
         </div>
     {% endfor %}
     {% if ai_alerts|length == 0 %}
         <div class="predicted-alert">
-            No alert found
+            No alerts found
+        </div>
+    {% endif %}
+</div>
+<h3>Latest Wildfire Reports</h3>
+<div class="alert-content" style="display: flex; flex-direction: column; gap: 10px">
+    {% for alert in alerts %}
+        <div class="confirmed-alert">
+            <p class="larger">Day {{ alert.event_day }} - Wildfire at ({{ alert.xy.0 }}, {{ alert.xy.1 }})
+        </div>
+    {% endfor %}
+    {% if alerts|length == 0 %}
+        <div class="predicted-alert">
+            No alerts found
         </div>
     {% endif %}
 </div>

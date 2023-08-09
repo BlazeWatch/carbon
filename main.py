@@ -88,6 +88,9 @@ while True:
             alerts = fetch_objects('SELECT * FROM public.fire_alerts_production ORDER BY event_day DESC LIMIT 5')
             ai_alerts = fetch_objects('SELECT * FROM public.ai_fire_alerts_production ORDER BY day DESC LIMIT 5')
 
+            for alert in ai_alerts:
+                alert['score'] = round(alert['score']*100, 2)
+
             render_template("alerts.jinja2", alerts=alerts, ai_alerts=ai_alerts)
 
         with cols[1]:
@@ -107,7 +110,7 @@ while True:
                 use_container_width=True, hide_index=True)
 
         with cols[2]:
-            tweets = fetch_objects(f'SELECT * FROM public.temp_readings_production WHERE day = {day} LIMIT 20')
+            tweets = fetch_objects(f'SELECT * FROM public.tweets_production WHERE day = {day} LIMIT 20')
 
             render_template("tweets.jinja2", tweets=tweets)
         print("Reloading")
