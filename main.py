@@ -92,7 +92,7 @@ while True:
 
         with cols[1]:
             col1, col2, col3 = st.columns(3)
-            col1.metric("Fires", "2")
+            col1.metric("Fires", str(len(alerts) + len(ai_alerts)))
             col2.metric("AVG Temp", str(round(avg, 1)) + " °F")
             col3.metric("Day", day)
             # chart_data = pd.DataFrame(
